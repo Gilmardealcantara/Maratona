@@ -21,36 +21,36 @@ int main(){
 		str_out="";
 		text.clear();
 		while(N--){	
-				getline(cin, str);
-				flag=0;
-				str_out="";	
-
-				for(int i=0; i<str.size() && str[i]!= '\n'; i++){
+			getline(cin, str);
+			flag=0;
+			str_out="";	
+			int i, j;
+			string boa;
+			for(i=0; i<str.size(); i++){
+				j=i;
+				string s;
+				while(str[i] != ' '&& i<str.size()) i++;
 				
-					while(str[i]==' ' && str[i+1]==' ' ) i++;
-					
-					if(str[i] == '\n') break;
+				s = str.substr(j,i-j);
+				
+				if(s !="")
+					boa+=s+' ';
 
-					if(str[i]==' ' && flag==0) i++;
+			}
+			boa.erase(boa.begin() + boa.size()-1);
+			
+			if(max_tam < boa.size()) max_tam = boa.size();
 
-					str_out+=str[i];
-					flag=1;				
-				}
-
-				text.push_back(str_out);
-
-				if(max_tam < str_out.size()) max_tam = str_out.size();
+			text.push_back(boa);
 		}
 
 		for(int i=0; i<text.size(); i++){
 			int num_esp = max_tam - text[i].size();
-			string str_out2;
-			while(num_esp--){
-				str_out2+=' ';
-			}
-			str_out2+= text[i]; 
-			cout << str_out2 << endl;
-		}
+
+			while(num_esp--){ cout <<" "; }
+			cout << text[i]<<endl;
+		} 	
+		cout << endl;
 	}
 	
 	return 0;

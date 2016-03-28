@@ -1,0 +1,65 @@
+#include<stdio.h>
+#include<algorithm>
+#include<math.h>
+
+using namespace std;
+
+int n, v[1005];
+
+void mostra(int n){
+	for(int i=0; i<n; i++){
+		printf("%d ",v[i]);
+	}printf("\n");
+}
+
+int cmp(int i, int j){
+	int k = min( (abs(v[i]-v[j])),24 - (abs(v[i]-v[j])));
+	printf("%d, %d, min=%d \n", i, j, k);
+	return k;
+}
+
+
+int par(int s){
+	printf("s=%d i=%d\n",s, s+1 );
+	int e=s+1, mini=cmp(s,s+1);
+	
+	for(int i=s+2; i<n; i++){
+		printf("s=%d i=%d\tmini=%d cmp=%d\n",s, i, mini, cmp(s,i) );
+		if(mini > cmp(s,i) ){ 
+			e=i;
+			mini=cmp(s,i);
+		}
+	}
+	printf("------>e=%d\n", e);
+	return e;
+}
+
+int vx[1005];
+
+void acha_cara(){
+	int i;
+	for(i=0; i<n; i+=2){
+		int j=par(i);
+		//printf("=>%d %d\n",v[i], v[j]);
+		mostra(n);
+		int aux=v[i+1];
+		v[i+1]=v[j];
+		v[j]=aux;
+		//vx[i]=v[i];
+		//vx[i+1]=v[j];
+	}	
+	printf("\n");
+}
+
+int main(){
+	
+	scanf("%d ", &n);
+
+	for(int i=0; i<n ; i++)
+		scanf("%d ", &v[i]);
+	mostra(n);	
+	acha_cara();
+	
+	mostra(n);
+	return 0;
+}
